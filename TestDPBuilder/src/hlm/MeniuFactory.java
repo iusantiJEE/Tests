@@ -1,15 +1,31 @@
 package hlm;
 
+import java.util.LinkedHashMap;
+
 import llm.CartofiPrajiti;
 import llm.CeafaDePorc;
 import llm.Chifla;
 import llm.Pepsi;
 import llm.Timisoreana;
 
-public class MeniuBuilder {
-	public Meniu meniuSmall(){
-		String methodName = "[" + new Object(){}.getClass().getEnclosingMethod().getName()+"]:";
-		Meniu  meniu  =  new Meniu( methodName);
+public class MeniuFactory {
+
+	private String _description;
+	private LinkedHashMap<String,IMeniu> _configMeniuri =  new LinkedHashMap<String, IMeniu>();
+	
+	public MeniuFactory(){
+		loadConfig();
+	}
+	
+	public IMeniu getMeniu(String description){
+		_description = description;
+		return _configMeniuri.containsKey(_description) ?
+				_configMeniuri.get(_description) : null;
+	}
+	
+	private void loadConfig(){
+		_description = "cuDeToate";
+		Meniu  meniu  =  new Meniu(_description);
 		meniu.adaugaProdus(new CeafaDePorc());
 		meniu.adaugaProdus(new CartofiPrajiti());
 		meniu.adaugaProdus(new CartofiPrajiti());
@@ -17,30 +33,21 @@ public class MeniuBuilder {
 		meniu.adaugaProdus(new Pepsi());
 		meniu.adaugaProdus(new Chifla());
 		meniu.adaugaProdus(new Chifla());
-		return meniu;
-	}
-	
-	public Meniu cuDeToate(){
-		String methodName = "[" + new Object(){}.getClass().getEnclosingMethod().getName()+"]:";
-		Meniu  meniu  =  new Meniu(methodName);
-		meniu.adaugaProdus(new CeafaDePorc());
-		meniu.adaugaProdus(new CeafaDePorc());
+		_configMeniuri.put(_description, meniu);
+		
+		_description = "meniuSmall";
+		meniu  =  new Meniu( _description);
 		meniu.adaugaProdus(new CeafaDePorc());
 		meniu.adaugaProdus(new CartofiPrajiti());
 		meniu.adaugaProdus(new CartofiPrajiti());
-		meniu.adaugaProdus(new CartofiPrajiti());
 		meniu.adaugaProdus(new Timisoreana());
-		meniu.adaugaProdus(new Timisoreana());
-		meniu.adaugaProdus(new Timisoreana());
-		meniu.adaugaProdus(new Timisoreana());
+		meniu.adaugaProdus(new Pepsi());
 		meniu.adaugaProdus(new Chifla());
 		meniu.adaugaProdus(new Chifla());
-		return meniu;
-	}
-	
-	public Meniu betivulVesel(){
-		String methodName = "[" + new Object(){}.getClass().getEnclosingMethod().getName()+"]:";
-		Meniu  meniu  =  new Meniu(methodName);
+		_configMeniuri.put(_description, meniu);
+		
+		_description = "betivulVesel";
+		meniu  =  new Meniu( _description);
 		meniu.adaugaProdus(new Timisoreana());
 		meniu.adaugaProdus(new Timisoreana());
 		meniu.adaugaProdus(new Timisoreana());
@@ -48,6 +55,6 @@ public class MeniuBuilder {
 		meniu.adaugaProdus(new Timisoreana());
 		meniu.adaugaProdus(new Timisoreana());
 		meniu.adaugaProdus(new Timisoreana());
-		return meniu;
+		_configMeniuri.put(_description, meniu);
 	}
 }

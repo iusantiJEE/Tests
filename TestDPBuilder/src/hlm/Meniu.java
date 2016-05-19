@@ -3,7 +3,7 @@ package hlm;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meniu {
+public class Meniu implements IMeniu{
 	private List<Produs> _produse = new ArrayList<Produs>();
 	private double _total = 0;
 	private StringBuilder _sb =  new StringBuilder();
@@ -12,11 +12,13 @@ public class Meniu {
 	public Meniu(String description){
 		_description =  description;
 	}
-	
+
+	@Override
 	public void adaugaProdus(Produs produs){
 		_produse.add(produs);
 	}
 	
+	@Override
 	public double calculeazaPretTotal(){
 		_produse.forEach(produs->{
 			_total += produs.pret();
@@ -24,6 +26,7 @@ public class Meniu {
 		return _total;
 	}
 	
+	@Override
 	public Meniu notaDePlata(){
 		_sb.setLength(0);
 		_sb.append(_description).append("\n");
@@ -37,6 +40,7 @@ public class Meniu {
 		return this;
 	}
 	
+	@Override
 	public void print(){
 		System.out.println(_sb.toString());
 	}
