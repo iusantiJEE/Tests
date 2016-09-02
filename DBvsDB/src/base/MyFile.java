@@ -1,4 +1,4 @@
-package tools;
+package base;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,16 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadMyFile {
+public class MyFile {
 	private String _filepath  =  null;
 	private String _buffer = null;
 	private List<String> _content=  new ArrayList<String>();
 	
-	public ReadMyFile(String filepath){
+	public MyFile(String filepath){
 		_filepath = filepath;
 	}
 	
-	public ReadMyFile getContent(){
+	public MyFile getContent(){
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(_filepath));
 			try {

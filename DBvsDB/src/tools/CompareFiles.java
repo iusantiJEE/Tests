@@ -3,6 +3,8 @@ package tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.MyFile;
+
 public class CompareFiles {
 	
 	public static enum Comparator{
@@ -10,11 +12,11 @@ public class CompareFiles {
 		DEV_OVER_PROD;
 	}
 	
-	private ReadMyFile _fProd =  null;
-	private ReadMyFile _fDev =  null;
+	private MyFile _fProd =  null;
+	private MyFile _fDev =  null;
 	private List<String> _diffBuffer =  new ArrayList<String>();
 	
-	public CompareFiles(ReadMyFile fProd, ReadMyFile fDev) {
+	public CompareFiles(MyFile fProd, MyFile fDev) {
 		_fProd = fProd;
 		_fDev = fDev;
 	}
@@ -51,14 +53,20 @@ public class CompareFiles {
 		return this;
 	}
 
+	public List<String> outputDiffToListOfStrings(){
+		return _diffBuffer;
+	}
 	public String outputDiffToString() {
 		String eol = System.getProperty("line.separator");
 		StringBuilder sb =  new StringBuilder();
 		for (String s : _diffBuffer){
 			sb.append(s).append(eol);
 		}
-		_diffBuffer.clear();
 		return sb.toString();
 	}
 
+	public CompareFiles close(){
+		_diffBuffer.clear();
+		return this;
+	}
 }
